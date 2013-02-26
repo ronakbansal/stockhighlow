@@ -1,0 +1,20 @@
+<h1>Select from the below list</h1>
+<%if !@new_arr.blank? %>
+
+<%  @new_arr.each do |i| %>
+<% if i["typeDisp"]== "Equity" && i["exchDisp"] == "NSE" && !i["symbol"].to_s.include?("-") && !i["symbol"].to_s.include?("_") %>
+  <p><%=link_to "#{i["name"]}", {}, :class=> "script", :sym => "#{i["symbol"]}" %></p>
+<%  end %>
+<%  end %>
+<%  else %>
+  <p>No script matches your search.</p>
+<% end %>
+
+  <script>
+    $('.script').click(function(e){
+      e.preventDefault();
+      var sym = $(this).attr("sym");
+      $('#chosen_symbol').val(sym);
+      $('#select_date').show();
+    })
+    </script>
