@@ -4,7 +4,7 @@ require 'json'
 require 'csv'
 class WelcomeController < ApplicationController
   def index
-    
+  
   end
 
   def search
