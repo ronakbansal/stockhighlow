@@ -26,9 +26,7 @@
 </div>
 <div id="orig_data" style="display: none;"></div>
 </div>
-<script>
-  $("[data_behaviour~='datepicker']").datepicker();
-</script>
+
 <script>
   $('#submit_button').click(function(e){
     e.preventDefault();
@@ -49,27 +47,5 @@
       }
     });
   });
-  $('#get_data_button').click(function(e){
-    e.preventDefault();
-    var sym = $('#chosen_symbol').val();
-    var to_date = $('#to_date').val();
-    var from_date =$('#from_date').val();
-    var data = {
-       symbol: sym,
-       to_date: to_date,
-       from_date: from_date
-    }
-    $.ajax({
-      type: "GET",
-      url: "/welcome/find_requested_data",
-      data: data,
-      success: function(data){
-       $('#orig_data').html(data);
-       $('#orig_data').show();
-      },
-      error: function(data,status,e){
-        alert("Error" + e);
-      }
-    });
-  });
+
 </script>
