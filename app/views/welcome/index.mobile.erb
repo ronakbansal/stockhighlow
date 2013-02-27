@@ -1,3 +1,7 @@
+  <div data-role="header">
+    <h1>StockHighLow</h1>
+      <%= link_to "Full Site", :mobile => 0, :class => "ui-btn-right" %>
+  </div>
 <div data-role="content">
 
 <%= form_tag do %>
@@ -7,7 +11,7 @@
   <%= submit_tag("Search",:id=>'submit_button', "data-role"=>"button") %>
 <% end %>
   
-<ul id="search_content" data-role="listview" data-inset="true"> </ul>
+<div id="for_search_content" style="display: none;"><ul id="search_content" data-role="listview" data-inset="true"> </ul></div>
 
 <input type="hidden" name="selected_symbol" id="chosen_symbol">
 <div id="select_date" style="display: none;">
@@ -28,6 +32,7 @@
 <script>
   $('#submit_button').click(function(e){
     e.preventDefault();
+    $('#search_content').html("");
     $('#select_date').hide();
     var q = $("#q").val();
     $.ajax({
@@ -35,6 +40,7 @@
       url: "/welcome/search",
       data: {q: q},
       success: function(data){
+        $('#for_search_content').show();
         $('#search_content').append(data);
          $('#search_content').listview("refresh");
       },

@@ -16,6 +16,8 @@ StockHighLow::Application.routes.draw do
      collection do
        get 'search'
        get 'find_requested_data'
+       get 'from_to_date'
+       get 'mobile_requested_data'
      end
    end
   # Sample resource route with options:

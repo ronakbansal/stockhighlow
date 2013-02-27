@@ -2,18 +2,18 @@
     <li data-role="list-divider" role="heading">Select from the below list</li>
     <%  @new_arr.each do |i| %>
       <% if i["typeDisp"]== "Equity" && i["exchDisp"] == "NSE" && !i["symbol"].to_s.include?("-") && !i["symbol"].to_s.include?("_") %>
-        <li><%=link_to "#{i["name"]}", {}, :class=> "script", :sym => "#{i["symbol"]}" %></li>
+        <li><%=link_to "#{i["name"]}", {:controller => 'welcome', :action => 'from_to_date',:script => "#{i["name"]}", :sym => "#{i["symbol"]}"}, :class=> "script" %></li>
       <%  end %>
     <%  end %>
   <%  else %>
     <li>No script matches your search.</li>
   <% end %>
 
-    <script>
-      $('.script').click(function(e){
-    e.preventDefault();
-    var sym = $(this).attr("sym");
-    $('#chosen_symbol').val(sym);
-    $('#select_date').show();
-  });
-    </script>
+    <%#*<script>%>
+      <%#*$('.script').click(function(e){%>
+    <%#*e.preventDefault();%>
+    <%#*var sym = $(this).attr("sym");%>
+    <%#*$('#chosen_symbol').val(sym);%>
+    <%#*$('#select_date').show();%>
+  <%#*});%>
+    <%#*</script>%>
