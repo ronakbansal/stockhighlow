@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'json'
-require 'fastercsv'
+require 'csv'
 class WelcomeController < ApplicationController
   def index
   respond_to do |format|
@@ -29,7 +29,7 @@ end
     from_month = from_month - 1
     to_month,to_day,to_year = params[:to_date].split('/').map(&:to_i)
     to_month = to_month - 1
-    @csv = FasterCSV.parse(open("http://ichart.yahoo.com/table.csv?s=#{params[:symbol]}&a=#{from_month}&b=#{from_day}&c=#{from_year}&d=#{to_month}&e=#{to_day}&f=#{to_year}&g=d&ignore=.csv"),{:headers => true,:return_headers => false})
+    @csv = CSV.parse(open("http://ichart.yahoo.com/table.csv?s=#{params[:symbol]}&a=#{from_month}&b=#{from_day}&c=#{from_year}&d=#{to_month}&e=#{to_day}&f=#{to_year}&g=d&ignore=.csv"),{:headers => true,:return_headers => false})
     render :partial => "find_requested_data"
   end
   def from_to_date
@@ -43,6 +43,6 @@ end
     from_month = from_month - 1
     to_month,to_day,to_year = params[:to_date].split('/').map(&:to_i)
     to_month = to_month - 1
-    @csv = FasterCSV.parse(open("http://ichart.yahoo.com/table.csv?s=#{@@sym}&a=#{from_month}&b=#{from_day}&c=#{from_year}&d=#{to_month}&e=#{to_day}&f=#{to_year}&g=d&ignore=.csv"),{:headers => true,:return_headers => false})
+    @csv = CSV.parse(open("http://ichart.yahoo.com/table.csv?s=#{@@sym}&a=#{from_month}&b=#{from_day}&c=#{from_year}&d=#{to_month}&e=#{to_day}&f=#{to_year}&g=d&ignore=.csv"),{:headers => true,:return_headers => false})
   end
 end
