@@ -1,1 +1,69 @@
-This is a mobile version!
+<div data-role="content">
+
+<%= form_tag do %>
+  <%#= label_tag(:q, "Search for:") %>
+  <input class="ui-input-text ui-body-c" placeholder="Give your script name here..." data-type="search" id="q">
+  <%#= text_field_tag(:q) %>
+  <%= submit_tag("Search",:id=>'submit_button', "data-role"=>"button") %>
+<% end %>
+  
+<ul id="search_content" data-role="listview" data-inset="true"> </ul>
+
+<input type="hidden" name="selected_symbol" id="chosen_symbol">
+<div id="select_date" style="display: none;">
+  <h1>Select to and from Date</h1>
+  <%= form_tag do %>
+  <p><%= label_tag(:from_date, "From : ") %>
+  <%= text_field_tag(:from_date, nil,:data_behaviour => 'datepicker') %></p>
+  <p><%= label_tag(:to_date, "To : ") %>
+  <%= text_field_tag(:to_date, nil,:data_behaviour => 'datepicker') %></p>
+  <%= submit_tag("Get Data",:id=>'get_data_button') %>
+<% end %>
+</div>
+<div id="orig_data" style="display: none;"></div>
+</div>
+<script>
+  $("[data_behaviour~='datepicker']").datepicker();
+</script>
+<script>
+  $('#submit_button').click(function(e){
+    e.preventDefault();
+    $('#select_date').hide();
+    var q = $("#q").val();
+    $.ajax({
+      type: "GET",
+      url: "/welcome/search",
+      data: {q: q},
+      success: function(data){
+        $('#search_content').append(data);
+         $('#search_content').listview("refresh");
+      },
+      error: function(data,status,e){
+        alert("Error" + e);
+      }
+    });
+  });
+  $('#get_data_button').click(function(e){
+    e.preventDefault();
+    var sym = $('#chosen_symbol').val();
+    var to_date = $('#to_date').val();
+    var from_date =$('#from_date').val();
+    var data = {
+       symbol: sym,
+       to_date: to_date,
+       from_date: from_date
+    }
+    $.ajax({
+      type: "GET",
+      url: "/welcome/find_requested_data",
+      data: data,
+      success: function(data){
+       $('#orig_data').html(data);
+       $('#orig_data').show();
+      },
+      error: function(data,status,e){
+        alert("Error" + e);
+      }
+    });
+  });
+</script>

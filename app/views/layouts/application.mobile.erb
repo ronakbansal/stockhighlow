@@ -7,13 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p>
-  <% if mobile_device? %>
-    <%= link_to "Full Site", :mobile => 0 %>
-  <% else %>
-    <%= link_to "Mobile Site", :mobile => 1 %>
-  <% end %>
-</p>
+  <div data-role="header">
+    <h1>StockHighLow</h1>
+      <%= link_to "Full Site", :mobile => 0, :class => "ui-btn-right" %>
+  </div>
 <%= yield %>
 
 </body>
